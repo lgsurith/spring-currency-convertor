@@ -1,10 +1,11 @@
 package com.server.exchangerates.exchanges;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ExchangeResponse {
+public class ExchangeResponse implements Serializable {
     @JsonProperty("time_last_update_unix")
     private Long timeLastUpdateUnix;
 
@@ -23,6 +24,7 @@ public class ExchangeResponse {
     @JsonProperty("conversion_rates")   
     private Map<String, Double> rates;
 
+    //getters and setters
     public Long getTimeLastUpdateUnix() {
         return timeLastUpdateUnix;
     }

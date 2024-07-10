@@ -13,12 +13,12 @@ import reactor.core.publisher.Mono;
 @Service
 public class ExchangeService {
     private final WebClient webClient;
-    private final RedisTemplate<String , Object> redisTemplate;
+    private final RedisTemplate<String , ExchangeResponse> redisTemplate;
     private final String apikey;
     private final String defaultCurrency;
 
     public ExchangeService(WebClient webClient,
-                        RedisTemplate<String, Object> redisTemplate,
+                        RedisTemplate<String, ExchangeResponse> redisTemplate,
                         @Value("${exchange.api.key}") String apikey,
                         @Value("${exchange.api.defaultcurrency}") String defaultCurrency){
                             this.webClient = webClient;
@@ -40,8 +40,9 @@ public class ExchangeService {
 
     public Mono<ExchangeResponse> getRates(){
         String cacheKey = "exchange_rates_" + LocalDate.now();
-        ExchangeResponse cachedRates = (ExchangeResponse) redisTemplate.opsForValue().get(cacheKey);
-
+        ExchangeResponse cachedRates = redisTemplate.opsForValue().get(cacheKey);
+        
+        //checks for the rates in the cache.
         if(cachedRates != null){
             return Mono.just(cachedRates);
         }else{
@@ -49,6 +50,7 @@ public class ExchangeService {
         }
     }
 
+    //if not in cache then fetch from the api and cache it accordingly.
     public Mono<ExchangeResponse> fetchAndCacheLatestRates2(){
         return webClient.get()
                 .uri("/{apikey}/latest/{defaultCurrency}", apikey, defaultCurrency)
@@ -61,11 +63,14 @@ public class ExchangeService {
     }
     public Mono<ConversionResponse> convert(String from , String to , Double amount){
         return getRates()
-                .map(response -> {
+                .flatMap(response -> {
                     Double fromRate = response.getRates().get(from);
                     Double toRate = response.getRates().get(to);
+                    if(fromRate == null || toRate == null){
+                        return Mono.error(new IllegalArgumentException("Invalid :( , make sure to enter the correct currency code."));
+                    }
                     Double convertedAmount = (amount / fromRate) * toRate;
-                    return new ConversionResponse(from, to, amount, convertedAmount);
+                    return Mono.just(new ConversionResponse(from, to, amount, convertedAmount));
                 });
     }                                                      
 }

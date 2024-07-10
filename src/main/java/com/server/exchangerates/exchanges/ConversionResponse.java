@@ -1,6 +1,5 @@
 package com.server.exchangerates.exchanges;
 
-
 public class ConversionResponse {
     private String from;
     private String to;
