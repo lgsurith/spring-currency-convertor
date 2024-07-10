@@ -1,4 +1,4 @@
-package com.server.exchangerates.exchanges;
+package com.server.exchangerates.exchanges.Configs;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +11,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.server.exchangerates.exchanges.Response.ExchangeResponse;
 
 @Configuration
 public class RedisConfig {

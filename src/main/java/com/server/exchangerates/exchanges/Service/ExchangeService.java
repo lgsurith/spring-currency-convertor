@@ -1,4 +1,4 @@
-package com.server.exchangerates.exchanges;
+package com.server.exchangerates.exchanges.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;

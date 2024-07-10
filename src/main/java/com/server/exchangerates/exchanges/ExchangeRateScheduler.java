@@ -3,6 +3,8 @@ package com.server.exchangerates.exchanges;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.server.exchangerates.exchanges.Service.ExchangeService;
+
 @Component
 public class ExchangeRateScheduler {
     private final ExchangeService exchangeService;

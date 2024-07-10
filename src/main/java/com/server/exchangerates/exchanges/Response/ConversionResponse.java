@@ -1,4 +1,4 @@
-package com.server.exchangerates.exchanges;
+package com.server.exchangerates.exchanges.Response;
 
 public class ConversionResponse {
     private String from;

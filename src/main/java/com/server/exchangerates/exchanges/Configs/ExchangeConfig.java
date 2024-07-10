@@ -1,4 +1,4 @@
-package com.server.exchangerates.exchanges;
+package com.server.exchangerates.exchanges.Configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
