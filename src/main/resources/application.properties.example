@@ -1,0 +1,18 @@
+spring.application.name=exchangerates
+
+#external api to fetch currencies data 
+exchange.api.key = your_api_key
+exchange.api.url = https://v6.exchangerate-api.com/v6/
+exchange.api.defaultcurrency = USD
+
+#spring redis setup
+spring.redis.host = your_redis_host
+spring.redis.port=your_redis_port
+spring.redis.username= your_redis_username
+spring.redis.password= your_redis_password
+spring.redis.ssl = true
+
+#logging files
+logging.file.name = logs/application.log
+logging.level.root = INFO
+logging.level.com.server.exchangerates = DEBUG

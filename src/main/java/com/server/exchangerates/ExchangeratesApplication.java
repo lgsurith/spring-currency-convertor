@@ -11,5 +11,5 @@ public class ExchangeratesApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ExchangeratesApplication.class, args);
 	}
-
+	
 }

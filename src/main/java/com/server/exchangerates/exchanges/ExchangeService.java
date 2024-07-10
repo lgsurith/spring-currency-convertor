@@ -8,10 +8,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import reactor.core.publisher.Mono;
 
 @Service
 public class ExchangeService {
+    private static final Logger logger = LoggerFactory.getLogger(ExchangeService.class);
     private final WebClient webClient;
     private final RedisTemplate<String , ExchangeResponse> redisTemplate;
     private final String apikey;
@@ -39,6 +43,8 @@ public class ExchangeService {
     }
 
     public Mono<ExchangeResponse> getRates(){
+        //adding into log files.
+        logger.debug("Fetching Exchange Rates");
         String cacheKey = "exchange_rates_" + LocalDate.now();
         ExchangeResponse cachedRates = redisTemplate.opsForValue().get(cacheKey);
         
