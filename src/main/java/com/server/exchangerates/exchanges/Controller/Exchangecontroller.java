@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import reactor.core.publisher.Mono;
 
+import com.server.exchangerates.exchanges.Service.ExchangeService;
+import com.server.exchangerates.exchanges.Response.ExchangeResponse;
+import com.server.exchangerates.exchanges.Response.ConversionResponse;
+
 @RestController
 @RequestMapping("/api/exchange")
 public class Exchangecontroller {
